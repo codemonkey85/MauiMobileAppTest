@@ -1,4 +1,5 @@
-﻿using MauiMobileAppTest.Data;
+﻿using System.Text.Json;
+using MauiMobileAppTest.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MauiMobileAppTest;
@@ -8,7 +9,6 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        var assembly = Assembly.GetExecutingAssembly();
 
         using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
 
