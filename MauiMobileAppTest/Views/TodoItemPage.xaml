@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiMobileAppTest.Views.TodoItemPage"
+             xmlns:local="clr-namespace:MauiMobileAppTest"
+             xmlns:models="clr-namespace:MauiMobileAppTest.Models"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <models:TodoItem />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="StartAndExpand">
+            <Label Text="Name" />
+            <Entry Text="{Binding Title}"/>
+            <Switch IsToggled="{Binding IsCompleted}" />
+            <Button Text="Save" Clicked="OnSaveClicked" />
+            <Button Text="Delete" Clicked="OnDeleteClicked" />
+            <Button Text="Cancel" Clicked="OnCancelClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
