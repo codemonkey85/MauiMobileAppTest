@@ -8,6 +8,14 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        var assembly = Assembly.GetExecutingAssembly();
+
+        using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
+
+        stream.Position = 0;
+        var appSettings = JsonSerializer.Deserialize<AppSettings>(stream);
+        builder.Services.AddSingleton(appSettings);
+
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
@@ -16,7 +24,10 @@ public static class MauiProgram
             });
 
         builder.Services.AddDbContext<AppDatabaseContext>(options => options.UseInMemoryDatabase("Todos"));
+        var mauiApp = builder.Build();
 
-        return builder.Build();
+        var dbContext = mauiApp.Services.CreateScope().ServiceProvider.GetRequiredService<AppDatabaseContext>();
+
+        return mauiApp;
     }
 }
